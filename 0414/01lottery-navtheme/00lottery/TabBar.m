@@ -22,22 +22,14 @@
 -(void)addTabButtonWithName:(NSString*)name selName:(NSString *) selName
 {
 
-    //2.1创建按钮
+    //创建自定义的按钮
     TabBarButton *button =[TabBarButton buttonWithType:UIButtonTypeCustom];
-    
-  
-    //2.2设置图片
-
+    //设置图片
     [button setBackgroundImage:[UIImage imageNamed:name] forState:UIControlStateNormal];
-
     [button setBackgroundImage:[UIImage imageNamed:selName] forState:UIControlStateSelected];
-    
-    //2.4添加到view
+    //添加到TabBar上 
     [self addSubview:button];
-    
-    //2.5监听按钮点击
-    // [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    //2.9修改按钮点击的方法,这样,一点击就会有切换控制器的反应
+   //按钮点击的方法改为 UIControlEventTouchDown 
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchDown];
     
     
@@ -50,23 +42,18 @@
 }
 
 
-
+//layoutSubviews是给子控件设置尺寸的最佳位置,这里利用 子控件.frame 拿到的frame才是最真实的frame
 -(void)layoutSubviews{
     [super layoutSubviews];//千万不要忘记调用父类的super
     int count = self.subviews.count;
-    
     for (int i=0; i<count; i++) {
-        
         TabBarButton * button = self.subviews[i];
         button.tag=i;
-        //2.3设置frame
         CGFloat buttonY=0;
         CGFloat buttonW=self.frame.size.width*0.2;
         CGFloat buttonH=self.frame.size.height;
         CGFloat buttonX=i*buttonW;
         button.frame=CGRectMake(buttonX,buttonY, buttonW, buttonH);
-        
-        
     }
 
 }
@@ -77,7 +64,7 @@
  */
 -(void)buttonClick:(UIButton*)button
 {
-    //0.通知代理
+    //通知代理那个按钮被点击了,要在 _selectedButton = button之前进行赋值
     if ([self.delegate respondsToSelector:@selector(tabBar:didSelectButtonFrom:to:)]) {
         [self.delegate tabBar:self didSelectButtonFrom:self.selectedButton.tag to:button.tag];
     }

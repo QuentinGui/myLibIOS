@@ -24,7 +24,7 @@
     }
     return self;
 }
-
+//覆盖这个方法,是为了防止按钮自己做一些多余的操作!
 -(void)setHighlighted:(BOOL)highlighted{
 
     //注意,不用调用super ,否则相当于没有覆盖!

@@ -12,9 +12,6 @@
 
 @interface TabViewController ()<TabBarDelegate>
 
-
-
-
 @end
 
 @implementation TabViewController
@@ -34,8 +31,6 @@
     myTabBar.delegate=self;
     myTabBar.backgroundColor=[UIColor blueColor];
     [self.view addSubview:myTabBar];
-        
-
 }
 
 #pragma -mark 代理方法:切换子控制器
